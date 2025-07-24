@@ -123,3 +123,30 @@ async def transcribe(file: UploadFile = File(...)):
             transcript = data["results"]["channels"][0]["alternatives"][0]["transcript"]
             return {"transcript": transcript}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
