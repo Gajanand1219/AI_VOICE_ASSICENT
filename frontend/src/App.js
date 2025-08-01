@@ -44,7 +44,7 @@ function StartPage() {
         <li>🧠 Powered by Azure OpenAI & Deepgram</li>
         <li>📄 All conversations saved in history</li>
         <li>👁️ Animated voice avatar for interaction</li>
-        <li>🔁 Continuous listening with smart restart</li>
+       
       </ul>
       <button onClick={() => navigate("/assistant")}>Start Conversation</button>
     </div>
