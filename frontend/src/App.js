@@ -35,7 +35,7 @@ function StartPage() {
   const navigate = useNavigate();
   return (
     <div className="center-page">
-      <h2>Welcome to VoiceAI</h2>
+     
       <p>
         VoiceAI is your personal voice-powered assistant. Speak naturally and let AI handle tasks, answer questions, and assist you with smart conversation.
       </p>
