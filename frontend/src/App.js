@@ -1,6 +1,4 @@
-
-
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
 import VoiceAssistant from "./VoiceAssistant";
 import History from "./History";
 import "./App.css";
@@ -10,10 +8,16 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h2>🎙️ VoiceAI Assistant</h2>
-        <nav>
-          <Link to="/">Start</Link>
-          <Link to="/assistant">Assistant</Link>
-          <Link to="/history">History</Link>
+        <nav className="nav-links">
+          <NavLink to="/" className={({ isActive }) => isActive ? "active-link" : ""}>
+            Start
+          </NavLink>
+          <NavLink to="/assistant" className={({ isActive }) => isActive ? "active-link" : ""}>
+            Assistant
+          </NavLink>
+          <NavLink to="/history" className={({ isActive }) => isActive ? "active-link" : ""}>
+            History
+          </NavLink>
         </nav>
       </header>
 
@@ -21,6 +25,7 @@ function App() {
         <Route path="/" element={<StartPage />} />
         <Route path="/assistant" element={<VoiceAssistant />} />
         <Route path="/history" element={<History />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
@@ -46,5 +51,14 @@ function StartPage() {
   );
 }
 
+function NotFound() {
+  return (
+    <div className="center-page">
+      <h2>404 - Page Not Found</h2>
+      <p>The page you're looking for doesn't exist.</p>
+      <button onClick={() => window.history.back()}>Go Back</button>
+    </div>
+  );
+}
 
 export default App;
