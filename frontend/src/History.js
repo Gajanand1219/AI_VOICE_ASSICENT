@@ -5,7 +5,7 @@ export default function History() {
 
   // Load and de-duplicate history
   useEffect(() => {
-    fetch("http://localhost:8000/history")
+    fetch("https://voice-backend-950d.onrender.com/history")
       .then((res) => res.json())
       .then((data) => {
         const uniqueMap = new Map();
@@ -22,7 +22,7 @@ export default function History() {
 
   // Clear all history from backend and local state
   const clearHistory = async () => {
-    await fetch("http://localhost:8000/history", { method: "DELETE" });
+    await fetch("https://voice-backend-950d.onrender.com/history", { method: "DELETE" });
     setHistory([]);
   };
 
@@ -49,7 +49,7 @@ export default function History() {
             {entry.audio_url && (
               <audio controls style={{ width: "100%", marginTop: "8px" }}>
                 <source
-                  src={`http://localhost:8000${entry.audio_url}`}
+                  src={`https://voice-backend-950d.onrender.com${entry.audio_url}`}
                   type="audio/mpeg"
                 />
                 Your browser does not support the audio element.
