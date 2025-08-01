@@ -41,7 +41,7 @@ export default function VoiceAssistant() {
       try {
         setIsProcessing(true);
 
-        const res = await fetch("https://voice-backend-950d.onrender.com/transcribe", {
+        const res = await fetch("http://localhost:8000/transcribe", {
           method: "POST",
           body: formData,
         });
@@ -62,7 +62,7 @@ export default function VoiceAssistant() {
         setTranscript(text);
 
         let finalText = "";
-        const streamRes = await fetch("https://voice-backend-950d.onrender.com/chat-stream", {
+        const streamRes = await fetch("http://localhost:8000/chat-stream", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text }),
@@ -79,14 +79,14 @@ export default function VoiceAssistant() {
           setResponse((prev) => prev + chunk);
         }
 
-        await fetch("https://voice-backend-950d.onrender.com/history", {
+        await fetch("http://localhost:8000/history", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ user: text, assistant: finalText }),
         });
 
         setTimeout(() => setIsAISpeaking(true), 1500);
-        const ttsRes = await fetch("https://voice-backend-950d.onrender.com/speak", {
+        const ttsRes = await fetch("http://localhost:8000/speak", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text: finalText }),
