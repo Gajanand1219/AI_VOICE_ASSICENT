@@ -4,14 +4,14 @@ export default function History() {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/history")
+    fetch("https://voice-backend-950d.onrender.com/history")
       .then((res) => res.json())
       .then((data) => setHistory(data.history || []))
       .catch(console.error);
   }, []);
 
   const clearHistory = async () => {
-    await fetch("http://localhost:8000/history", { method: "DELETE" });
+    await fetch("https://voice-backend-950d.onrender.com/history", { method: "DELETE" });
     setHistory([]);
   };
 
