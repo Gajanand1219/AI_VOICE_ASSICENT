@@ -1,7 +1,5 @@
 
-
-/* src/App.css */
-
+/* ===== BASE STYLES ===== */
 body {
   margin: 0;
   padding: 0;
@@ -16,32 +14,349 @@ body {
   min-height: 100vh;
 }
 
+.main-content {
+  flex: 1;
+}
+
+/* ===== HEADER STYLES ===== */
 .app-header {
   background-color: #010407;
   color: white;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding: 15px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 22px;
   font-weight: bold;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 100;
 }
 
-nav a {
-  margin-left: 20px;
-  font-weight: 500;
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* ===== DESKTOP NAVIGATION ===== */
+.desktop-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.desktop-nav a {
+  color: white;
   text-decoration: none;
-  color: #ffffff;
-  padding: 6px 10px;
+  font-weight: 500;
+  padding: 8px 16px;
   border-radius: 6px;
   transition: background 0.3s;
 }
 
-nav a:hover {
+.desktop-nav a:hover {
   background: rgba(255, 255, 255, 0.2);
 }
+
+/* ===== MOBILE NAVIGATION ===== */
+.hamburger {
+  display:none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 101;
+}
+
+
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 98;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background-color: #010407;
+  z-index: 99;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding-top: 70px;
+}
+
+.mobile-nav.open {
+  transform: translateX(250px);
+}
+
+.mobile-nav a {
+  color: white;
+  text-decoration: none;
+  padding: 15px 25px;
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
+}
+
+.mobile-nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+/* ===== PAGE STYLES ===== */
+.center-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #f1f1f1;
+}
+
+.center-page h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  text-shadow: 1px 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.center-page p {
+  max-width: 700px;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.features-wrapper {
+  background: rgba(255, 255, 255, 0.07);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  font-size: 1.1rem;
+  line-height: 2;
+}
+
+.features-list li::before {
+  content: "✨ ";
+  margin-right: 8px;
+}
+
+/* ===== BUTTON STYLES ===== */
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.center-page button {
+  background-color: #ff6f61;
+  color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.center-page button:hover {
+  background-color: #e64a19;
+  transform: translateY(-2px);
+}
+
+/* ===== ASSISTANT PAGE STYLES ===== */
+.assistant-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.avatar-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 25px rgba(0, 138, 255, 0.4);
+}
+
+.voice-bars {
+  display: flex;
+  gap: 6px;
+}
+
+.voice-bars .bar {
+  width: 6px;
+  height: 24px;
+  background-color: #00bcd4;
+  border-radius: 4px;
+  animation: bounceBar 0.8s infinite ease-in-out;
+}
+
+@keyframes bounceBar {
+  0%, 100% { transform: scaleY(0.6); }
+  50% { transform: scaleY(1.6); }
+}
+
+/* ===== HISTORY PAGE STYLES ===== */
+.page {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.page h2 {
+  font-size: 2.2rem;
+  color: #1e88e5;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.page li {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 15px 20px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .center-page {
+    padding: 2rem 1rem;
+  }
+
+  .center-page h2 {
+    font-size: 2rem;
+  }
+
+  .features-wrapper {
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav,
+  .mobile-nav-overlay {
+    display: none;
+  }
+}
+/* ===== MAIN CONTENT ===== */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+/* ===== START PAGE ===== */
+.start-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.start-page h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #1a1a2e;
+}
+
+.start-page p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.features {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.features ul {
+  list-style: none;
+  text-align: left;
+  padding: 0;
+}
+
+.features li {
+  padding: 0.75rem 0;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.start-page button {
+  background-color: #4a6fa5;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.start-page button:hover {
+  background-color: #3a5a8f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* src/App.css */
+
 
 .center-page {
   flex: 1;
@@ -361,4 +676,9 @@ button {
 
 .page strong {
   color: #333;
+}
+
+.hi{
+  color: white;
+  font-size: xx-large;
 }
