@@ -1,32 +1,61 @@
-import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import VoiceAssistant from "./VoiceAssistant";
 import History from "./History";
 import "./App.css";
 
 function App() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="app">
       <header className="app-header">
-        <h2>🎙️ VoiceAI Assistant</h2>
-        <nav className="nav-links">
-          <NavLink to="/" className={({ isActive }) => isActive ? "active-link" : ""}>
-            Start
-          </NavLink>
-          <NavLink to="/assistant" className={({ isActive }) => isActive ? "active-link" : ""}>
-            Assistant
-          </NavLink>
-          <NavLink to="/history" className={({ isActive }) => isActive ? "active-link" : ""}>
-            History
-          </NavLink>
+        <div className="header-container">
+          <div className="logo">🎙️ VoiceAI</div>
+          
+          {/* Desktop Navigation */}
+          <nav className="desktop-nav">
+            <Link to="/">Start</Link>
+            <Link to="/assistant">Assistant</Link>
+            <Link to="/history">History</Link>
+          </nav>
+
+          {/* Mobile Hamburger */}
+          <button 
+            className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Menu"
+          >
+            <span class="hi" >☰</span>
+           
+          </button>
+        </div>
+        <div 
+          className={`mobile-nav-overlay ${mobileMenuOpen ? 'active' : ''}`}
+          onClick={() => setMobileMenuOpen(false)}
+        ></div>
+
+        {/* Mobile Navigation */}
+        <nav className={`mobile-nav ${mobileMenuOpen ? 'open' : ''}`}>
+          <Link to="/" onClick={() => setMobileMenuOpen(false)} className="nav-link">
+            <span>🏠</span> Start
+          </Link>
+          <Link to="/assistant" onClick={() => setMobileMenuOpen(false)} className="nav-link">
+            <span>🎤</span> Assistant
+          </Link>
+          <Link to="/history" onClick={() => setMobileMenuOpen(false)} className="nav-link">
+            <span>📚</span> History
+          </Link>
         </nav>
       </header>
 
-      <Routes>
-        <Route path="/" element={<StartPage />} />
-        <Route path="/assistant" element={<VoiceAssistant />} />
-        <Route path="/history" element={<History />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<StartPage />} />
+          <Route path="/assistant" element={<VoiceAssistant />} />
+          <Route path="/history" element={<History />} />
+        </Routes>
+      </main>
     </div>
   );
 }
@@ -34,29 +63,21 @@ function App() {
 function StartPage() {
   const navigate = useNavigate();
   return (
-    <div className="center-page">
-     
+    
+    <div className="start-page">
+      <h2>Welcome to VoiceAI</h2>
       <p>
-        VoiceAI is your personal voice-powered assistant. Speak naturally and let AI handle tasks, answer questions, and assist you with smart conversation.
+        Your personal voice-powered assistant for natural conversations and smart task handling.
       </p>
-      <ul className="features-list">
-        <li>🎙️ Speak and get instant AI responses</li>
-        <li>🧠 Powered by Azure OpenAI & Deepgram</li>
-        <li>📄 All conversations saved in history</li>
-        <li>👁️ Animated voice avatar for interaction</li>
-       
-      </ul>
-      <button onClick={() => navigate("/assistant")}>Start Conversation</button>
-    </div>
-  );
-}
-
-function NotFound() {
-  return (
-    <div className="center-page">
-      <h2>404 - Page Not Found</h2>
-      <p>The page you're looking for doesn't exist.</p>
-      <button onClick={() => window.history.back()}>Go Back</button>
+      <div className="features">
+        <ul>
+          <li>🎙️ Voice-controlled interactions</li>
+          <li>🧠 AI-powered responses</li>
+          <li>📚 Conversation history</li>
+          <li>🗣️ Text-to-speech</li>
+        </ul>
+      </div>
+      <button onClick={() => navigate("/assistant")}>Get Started</button>
     </div>
   );
 }
