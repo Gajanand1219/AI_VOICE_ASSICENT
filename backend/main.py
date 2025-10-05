@@ -44,6 +44,25 @@ chat_history = []
 class Prompt(BaseModel):
     text: str
 
+
+@app.post("/transcribe")
+async def transcribe(file: UploadFile = File(...)):
+    api_key = os.getenv("DEEPGRAM_API_KEY")
+    audio = await file.read()
+    url = "https://api.deepgram.com/v1/listen"
+    headers = {
+        "Authorization": f"Token {api_key}",
+        "Content-Type": "audio/webm"
+    }
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, headers=headers, data=audio) as response:
+            if response.status != 200:
+                return {"error": f"Deepgram error {response.status}", "details": await response.text()}
+            data = await response.json()
+            transcript = data["results"]["channels"][0]["alternatives"][0]["transcript"]
+            return {"transcript": transcript}
+
+
 @app.post("/chat-stream")
 def chat_stream(prompt: Prompt):
     user_input = prompt.text.strip()
@@ -73,8 +92,8 @@ def chat_stream(prompt: Prompt):
                 yield delta.content
         chat_history.append({"user": user_input, "assistant": full_reply})
 
-
     return StreamingResponse(generate(), media_type="text/plain")
+
 
 @app.post("/speak")
 def speak(prompt: Prompt):
@@ -94,6 +113,7 @@ def speak(prompt: Prompt):
         return {"error": "TTS failed", "details": response.text}
     return StreamingResponse(io.BytesIO(response.content), media_type="audio/mpeg")
 
+
 @app.get("/history")
 def get_history():
     return {"history": chat_history}
@@ -102,51 +122,5 @@ def get_history():
 def clear_history():
     chat_history.clear()
     return {"message": "Chat history cleared"}
-
-
-
-
-@app.post("/transcribe")
-async def transcribe(file: UploadFile = File(...)):
-    api_key = os.getenv("DEEPGRAM_API_KEY")
-    audio = await file.read()
-    url = "https://api.deepgram.com/v1/listen"
-    headers = {
-        "Authorization": f"Token {api_key}",
-        "Content-Type": "audio/webm"
-    }
-    async with aiohttp.ClientSession() as session:
-        async with session.post(url, headers=headers, data=audio) as response:
-            if response.status != 200:
-                return {"error": f"Deepgram error {response.status}", "details": await response.text()}
-            data = await response.json()
-            transcript = data["results"]["channels"][0]["alternatives"][0]["transcript"]
-            return {"transcript": transcript}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
